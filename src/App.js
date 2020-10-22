@@ -1,21 +1,38 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import { addCount } from "./redux/actions";
+import NewPost from "./newPost";
+import { startSetPosts } from "./redux/actions";
 
-function App({ dispatch, count, addCount }) {
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.startSetPosts();
+  }
   // const [count, setCount] = useState(0);
-  return (
-    <div className="App">
-      <button onClick={() => addCount()}>{count}</button>
-    </div>
-  );
+  debugger;
+  render() {
+    return (
+      <div className="App">
+        POSTS
+        {this.props.posts.map((post) => (
+          <div key={post.id}>{post.title}</div>
+        ))}
+        <NewPost />
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    count: state.count,
+    posts: state.posts,
   };
 };
 
-export default connect(mapStateToProps, { addCount })(App);
+export default connect(mapStateToProps, { startSetPosts })(App);
