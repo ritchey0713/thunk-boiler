@@ -15,24 +15,28 @@ class App extends Component {
     this.props.startSetPosts();
   }
   // const [count, setCount] = useState(0);
-  debugger;
   render() {
     return (
       <div className="App">
         POSTS
-        {this.props.posts.map((post) => (
-          <div key={post.id}>{post.title}</div>
-        ))}
         <NewPost />
+        {Object.keys(this.props.posts).map((id) => (
+          <div>{this.props.posts[id].title}</div>
+        ))}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(state.posts);
   return {
     posts: state.posts,
   };
 };
 
 export default connect(mapStateToProps, { startSetPosts })(App);
+
+// {this.props.posts.map((post) => (
+//   <div key={post.id}>{post.title}</div>
+// ))}

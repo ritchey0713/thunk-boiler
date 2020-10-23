@@ -1,4 +1,5 @@
-import { normalize, arrayOf } from "normalizr";
+import { normalize } from "normalizr";
+import * as schema from "./schema/postSchema";
 // export const addCount = () => ({ type: "INCREMENT_COUNT" })
 
 //async version
@@ -8,8 +9,6 @@ import { normalize, arrayOf } from "normalizr";
 //   };
 // };
 
-import postSchema from "./schema/postSchema";
-
 //get index
 export const startSetPosts = () => {
   return (dispatch, getState) => {
@@ -18,8 +17,10 @@ export const startSetPosts = () => {
       // use normalizr for orm stuff
       // .then((data) => dispatch(setPosts(data.posts)));
       .then((data) => {
-        const normal = normalize(data.posts, postSchema);
-        console.log(normal);
+        const normalizedData = normalize(data, [schema.post]);
+        // console.log("normal", normalize(data, schema.arrayOfPosts));
+        // console.log("normal??", normalize(data, [schema.post]));
+        dispatch(setPosts(normalizedData));
       });
   };
 };

@@ -1,16 +1,16 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 const initialState = {
-  posts: [],
+  posts: {},
 };
 
 const rootReducer = (state = initialState, action) => {
-  console.log("STATE AND ACTION", state, action);
+  // console.log("STATE AND ACTION", state, action);
   switch (action.type) {
     case "SET_POSTS":
       return {
         ...state,
-        posts: action.posts,
+        posts: action.posts.entities.posts,
       };
     case "ADD_POST":
       return {

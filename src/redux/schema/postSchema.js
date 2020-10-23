@@ -1,10 +1,12 @@
-import { schema, arrayOf } from "normalizr";
+// import { Schema, arrayOf } from "normalizr";
 
-const postSchema = new schema.Entity("posts", { idAttribute: "id" });
-const tagSchema = new schema.Entity("tags", { idAttribute: "id" });
+// export const post = new Schema("posts");
+// export const arrayOfPosts = arrayOf(post);
 
-postSchema.define({
-  tags: arrayOf(tagSchema),
+import { normalize, schema } from "normalizr";
+
+export const tag = new schema.Entity("tags");
+
+export const post = new schema.Entity("posts", {
+  tags: [tag],
 });
-
-export { postSchema, tagSchema };
