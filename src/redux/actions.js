@@ -19,7 +19,7 @@ export const startSetPosts = () => {
       .then((data) => {
         const normalizedData = normalize(data, [schema.post]);
         // console.log("normal", normalize(data, schema.arrayOfPosts));
-        // console.log("normal??", normalize(data, [schema.post]));
+        //console.log("normal??", normalize(data, [schema.post]));
         dispatch(setPosts(normalizedData));
       });
   };

@@ -2,6 +2,7 @@ import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 const initialState = {
   posts: {},
+  refIds: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         posts: action.posts.entities.posts,
+        refIds: action.posts.result,
       };
     case "ADD_POST":
       return {

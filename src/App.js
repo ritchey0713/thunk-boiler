@@ -3,14 +3,10 @@ import "./App.css";
 import { connect } from "react-redux";
 import NewPost from "./newPost";
 import { startSetPosts } from "./redux/actions";
+import { Switch, Route } from "react-router-dom";
+import PostContainer from "./container/postContainer";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
   componentDidMount() {
     this.props.startSetPosts();
   }
@@ -18,25 +14,39 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        POSTS
-        <NewPost />
-        {Object.keys(this.props.posts).map((id) => (
-          <div>{this.props.posts[id].title}</div>
-        ))}
+        <Switch>
+          <Route exact path="/new_post" component={NewPost} />
+          <Route path="/posts" component={PostContainer} />
+        </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state.posts);
-  return {
-    posts: state.posts,
-  };
-};
-
-export default connect(mapStateToProps, { startSetPosts })(App);
+export default connect(null, { startSetPosts })(App);
 
 // {this.props.posts.map((post) => (
 //   <div key={post.id}>{post.title}</div>
 // ))}
+
+// {
+//   Object.keys(this.props.posts).map((id) => (
+//     <div>{this.props.posts[id].title}</div>
+//   ));
+// }
+
+// return (
+//   <div className="App">
+//     POSTS
+//     <NewPost />
+//     {this.props.refIds.map((id) => (
+//       <div key={this.props.posts[id]}>{this.props.posts[id].title}</div>
+//     ))}
+//   </div>
+// );
+{
+  /* <Route
+            path="/posts/:id"
+            render={(props) => <Post {...props} posts={this.props.posts} />}
+          /> */
+}
