@@ -15,6 +15,9 @@ class PostForm extends Component {
     e.preventDefault();
 
     this.props.startAddPost(this.state);
+    this.setState({
+      title: "",
+    });
   };
 
   handleChange = (e) => {

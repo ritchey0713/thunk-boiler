@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
 import { connect } from "react-redux";
-import NewPost from "./newPost";
-import { startSetPosts } from "./redux/actions";
+import PostForm from "./PostForm";
+import { startSetPosts, startSetTags } from "./redux/actions";
 import { Switch, Route } from "react-router-dom";
 import PostContainer from "./container/postContainer";
 
 class App extends Component {
   componentDidMount() {
     this.props.startSetPosts();
+    this.props.startSetTags();
   }
-  // const [count, setCount] = useState(0);
   render() {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/new_post" component={NewPost} />
+          <Route exact path="/new_post" component={PostForm} />
           <Route path="/posts" component={PostContainer} />
         </Switch>
       </div>
@@ -23,7 +23,7 @@ class App extends Component {
   }
 }
 
-export default connect(null, { startSetPosts })(App);
+export default connect(null, { startSetPosts, startSetTags })(App);
 
 // {this.props.posts.map((post) => (
 //   <div key={post.id}>{post.title}</div>

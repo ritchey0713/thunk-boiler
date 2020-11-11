@@ -1,8 +1,10 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import logger from "redux-logger";
 const initialState = {
   posts: {},
   refIds: [],
+  tags: {},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -17,7 +19,16 @@ const rootReducer = (state = initialState, action) => {
     case "ADD_POST":
       return {
         ...state,
-        posts: state.posts.concat(action.post),
+        posts: {
+          ...state.posts,
+          [action.post.id]: action.post,
+        },
+        refIds: state.refIds.concat(action.post.id),
+      };
+    case "SET_TAGS":
+      return {
+        ...state,
+        tags: action.tags.entities.tags,
       };
 
     default:
@@ -25,4 +36,4 @@ const rootReducer = (state = initialState, action) => {
   }
 };
 
-export default createStore(rootReducer, applyMiddleware(thunk));
+export default createStore(rootReducer, applyMiddleware(thunk, logger));

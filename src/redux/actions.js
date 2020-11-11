@@ -61,3 +61,23 @@ export const addPost = (post) => {
     post,
   };
 };
+
+export const startSetTags = () => {
+  return (dispatch) => {
+    fetch("http://localhost:3001/tags")
+      .then((resp) => resp.json())
+      // use normalizr for orm stuff
+      // .then((data) => dispatch(setPosts(data.posts)));
+      .then((data) => {
+        const normalizedData = normalize(data, [schema.tag]);
+        // console.log("normal", normalize(data, schema.arrayOfPosts));
+        //console.log("normal??", normalize(data, [schema.post]));
+        dispatch(setTags(normalizedData));
+      });
+  };
+};
+
+export const setTags = (tags) => ({
+  type: "SET_TAGS",
+  tags,
+});

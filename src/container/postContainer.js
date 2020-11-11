@@ -3,14 +3,16 @@ import AllPosts from "../AllPosts";
 import { connect } from "react-redux";
 import { Route } from "react-router-dom";
 import Post from "../Post";
+import PostForm from "../PostForm";
 
 class PostContainer extends Component {
   render() {
     return (
       <div>
+        <PostForm />
         <Route
           exact
-          path={`${this.props.match.path}/posts_index`}
+          path={`${this.props.match.path}`}
           render={(props) => (
             <AllPosts
               {...props}
@@ -20,7 +22,7 @@ class PostContainer extends Component {
           )}
         />
         <Route
-          path={`${this.props.match.path}/show/:id`}
+          path={`${this.props.match.path}/:id`}
           render={(props) => (
             <Post
               {...props}
